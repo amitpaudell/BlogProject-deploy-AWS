@@ -3,12 +3,19 @@ const User = require('../models/user');
 
 const router = Router();
 
-router.get('/sigin', (req, res) => {
-  res.render('sigin');
+router.get('/signin', (req, res) => {
+  res.render('signin');
 });
 
 router.get('/signup', (req, res) => {
   res.render('signup');
+});
+
+router.post('/signin', async (req, res) => {
+  const { email, password } = req.body;
+  const user = await User.matchPassword(email, password);
+  console.log('User', user);
+  return res.redirect('/');
 });
 
 router.post('/signup', async (req, res) => {
