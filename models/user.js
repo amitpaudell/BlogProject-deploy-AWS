@@ -35,6 +35,7 @@ const userSchema = new Schema(
 
 userSchema.pre('save', function () {
   const user = this;
+  //if you update only the name
   if (!user.isModified('password')) return;
 
   const salt = randomBytes(16).toString();
