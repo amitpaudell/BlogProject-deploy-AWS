@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./partials/head') %>
+    <title>Add Blog Page</title>
+  </head>
+  <body>
+    <%- include('./partials/nav') %>
+    <div class="container">
+      <form action="/blog" method="post">
+        <div class="mb-3">
+          <label for="formFile" class="form-label"
+            >Default file input example</label
+          >
+          <input
+            name="coverImage"
+            class="form-control"
+            type="file"
+            id="formFile"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Title</label>
+          <input
+            name="title"
+            type="text"
+            class="form-control"
+            id="exampleFormControlInput1"
+            placeholder="Enter blog title"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlTextarea1" class="form-label"
+            >Description</label
+          >
+          <textarea
+            name="body"
+            class="form-control"
+            id="exampleFormControlTextarea1"
+            rows="3"
+          ></textarea>
+        </div>
+        <input class="btn btn-primary" type="submit" value="Submit" />
+      </form>
+    </div>
+    <%- include('./partials/scripts') %>
+  </body>
+</html>
