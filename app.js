@@ -1,3 +1,4 @@
+require('dotenv').config();
 const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
@@ -13,7 +14,7 @@ const {
 const app = express();
 
 mongoose
-  .connect('mongodb://127.0.0.1:27017/blogify')
+  .connect(process.env.MONGO_URL)
   .then((e) => console.log('Mongodb Connected'));
 
 app.set('view engine', 'ejs');
@@ -35,7 +36,7 @@ app.get('/', async (req, res) => {
 app.use('/user', userRouter);
 app.use('/blog', blogRouter);
 
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
