@@ -4,15 +4,16 @@ const path = require('path');
 const Blog = require('../models/blog');
 const { Comment } = require('../models/comment');
 
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const cloudinary = require('../utils/cloudinary');
+
 const router = Router();
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, path.resolve(`./public/uploads/`));
-  },
-  filename: function (req, file, cb) {
-    const filename = `${Date.now()}-${file.originalname}`;
-    cb(null, filename);
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'blog-app',
+    allowed_formats: ['jpg', 'jpeg', 'png', 'webp'],
   },
 });
 
@@ -54,7 +55,7 @@ router.post('/', upload.single('coverImage'), async (req, res) => {
     title,
     body,
     createdBy: req.user._id,
-    coverImageURL: `/uploads/${req.file.filename}`,
+    coverImageURL: req.file.path,
   });
   return res.redirect(`/blog/${blog._id}`);
 });
